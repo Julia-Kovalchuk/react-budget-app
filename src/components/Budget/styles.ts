@@ -30,6 +30,7 @@ const Button = styled.button`
 
 const Input = styled.input`
   background: ${Color.Secondary};
+  width: 50%;
   border: none;
   color: ${Color.Black};
   font-weight: 500;
