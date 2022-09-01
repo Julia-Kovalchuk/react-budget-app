@@ -9,21 +9,6 @@ import { Title } from "../Title/Title";
 import { HeaderTitleBox, StyledHeader } from "./styles";
 
 export const Header = () => {
-  const { budget } = useBudgetContext();
-  const { expenses } = useExpensesContext();
-
-  const amountExpenses: number = expenses.reduce((amount, expense) => {
-    return amount + +expense.cost;
-  }, 0);
-
-  const remainingValue: number = +budget - amountExpenses;
-
-  let isOverspending = false;
-
-  if (remainingValue < 0) {
-    isOverspending = true;
-  }
-
   return (
     <StyledHeader>
       <HeaderTitleBox>
@@ -31,11 +16,8 @@ export const Header = () => {
         <CustomSelect />
       </HeaderTitleBox>
       <Budget />
-      <Remaining
-        remainingValue={remainingValue}
-        isOverspending={isOverspending}
-      />
-      <Spent amountExpenses={amountExpenses} />
+      <Remaining />
+      <Spent />
     </StyledHeader>
   );
 };

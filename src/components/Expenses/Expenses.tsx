@@ -9,8 +9,8 @@ import { Title } from "../Title/Title";
 import { StyledExpenses } from "./styles";
 
 export const Expenses = () => {
-  const search = useInput();
-  const debounceValue = useDebounce(search.value);
+  const { inputValue, onChange } = useInput();
+  const debounceValue = useDebounce(inputValue);
   const { expenses } = useExpensesContext();
   const [expensesValues, setExpensesValues] = useState<IExpense[]>(expenses);
 
@@ -29,7 +29,7 @@ export const Expenses = () => {
   return (
     <StyledExpenses>
       <Title name="Expenses" />
-      <Input placeholder="search ..." {...search} />
+      <Input placeholder="search ..." value={inputValue} onChange={onChange} />
       <List currentExpenses={expensesValues} />
     </StyledExpenses>
   );

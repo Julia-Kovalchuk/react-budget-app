@@ -1,4 +1,3 @@
-import React from "react";
 import { useExpensesContext } from "../../context/ExpensesContext/ExpensesContext";
 import { IExpense } from "../../types";
 import { ListItem } from "../ListItem/ListItem";
@@ -10,6 +9,7 @@ interface IProps {
 
 export const List = ({ currentExpenses }: IProps) => {
   const { expenses } = useExpensesContext();
+
   let isStart: boolean = true;
 
   expenses.length !== 0 ? (isStart = false) : (isStart = true);
@@ -17,23 +17,19 @@ export const List = ({ currentExpenses }: IProps) => {
   let isSearching: boolean = false;
   currentExpenses.length === 0 ? (isSearching = true) : (isSearching = false);
 
-  if (isStart) {
-    return <StyledList $isSearching={isSearching}> </StyledList>;
-  } else if (currentExpenses.length === 0) {
-    return (
-      <StyledList $isSearching={isSearching}>
+  return (
+    <StyledList $isSearching={isSearching}>
+      {isStart ? (
+        <Phrase>Your expense list is empty</Phrase>
+      ) : currentExpenses.length === 0 ? (
         <Phrase>Oooops 🙈</Phrase>
-      </StyledList>
-    );
-  } else {
-    return (
-      <StyledList $isSearching={isSearching}>
-        {currentExpenses.map((currentExpenses: IExpense) => {
+      ) : (
+        currentExpenses.map((currentExpenses: IExpense) => {
           return (
             <ListItem expense={currentExpenses} key={currentExpenses.id} />
           );
-        })}
-      </StyledList>
-    );
-  }
+        })
+      )}
+    </StyledList>
+  );
 };

@@ -1,6 +1,5 @@
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { Color } from "./colors";
-import { Media } from "./media";
 
 export const GlobalStyle = createGlobalStyle`
 *{
@@ -23,15 +22,3 @@ button {
     font-size: inherit;
     font-family: inherit;
 }`;
-
-export const StyledApp = styled.div`
-  width: 100%;
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-
-  ${Media.MD} {
-    margin: 0px auto;
-    max-width: 700px;
-  }
-`;

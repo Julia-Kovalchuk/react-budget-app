@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Currency } from "../../types";
+import { Currency } from "../../config/currency";
 
 export interface ICurrencyContext {
   currency: Currency;

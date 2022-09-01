@@ -1,13 +1,19 @@
 import React from "react";
 import { useCurrencyContext } from "../../context/CurrencyContex/CurrencyContex";
+import { useExpensesContext } from "../../context/ExpensesContext/ExpensesContext";
 import { StyledSpent } from "./styles";
 
-interface IProps {
-  amountExpenses: number;
-}
-
-export const Spent = ({ amountExpenses }: IProps) => {
+export const Spent = () => {
   const { currency } = useCurrencyContext();
+  const { expenses } = useExpensesContext();
 
-  return <StyledSpent>Spent so far: {currency + amountExpenses}</StyledSpent>;
+  const amountExpenses: number = expenses.reduce((amount, expense) => {
+    return amount + +expense.cost;
+  }, 0);
+
+  return (
+    <StyledSpent>
+      Spent so far: {currency} {amountExpenses}
+    </StyledSpent>
+  );
 };

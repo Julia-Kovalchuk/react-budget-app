@@ -7,36 +7,43 @@ import { Button, Input, StyledBudget } from "./styles";
 export const Budget = () => {
   const { currency } = useCurrencyContext();
   const { budget, setBudget } = useBudgetContext();
-  const [isEditMode, toggleIsEditMode] = useToggle();
-  const budgetEnter = useInput();
+  const [isEditMode, toggleEditMode] = useToggle();
+  const { inputValue, onChange, setInputValue } = useInput();
 
-  if (isEditMode) {
-    const handleSave = (): void => {
-      setBudget(budgetEnter.value);
-      budgetEnter.value = "";
-      toggleIsEditMode();
-    };
+  const handleSave = (): void => {
+    setBudget(inputValue);
+    setInputValue("");
+    toggleEditMode();
+  };
 
-    return (
-      <StyledBudget>
-        <Input type="number" placeholder="Enter budget..." {...budgetEnter} />
-        <Button type="button" onClick={handleSave}>
-          Save
-        </Button>
-      </StyledBudget>
-    );
-  } else {
-    const handleEdit = (): void => {
-      toggleIsEditMode();
-    };
+  const handleEdit = (): void => {
+    toggleEditMode();
+  };
 
-    return (
-      <StyledBudget>
-        <p>Budget: {currency + budget}</p>
-        <Button type="button" onClick={handleEdit}>
-          Edit
-        </Button>
-      </StyledBudget>
-    );
-  }
+  return (
+    <StyledBudget>
+      {isEditMode ? (
+        <>
+          <Input
+            type="number"
+            placeholder="Enter budget..."
+            value={inputValue}
+            onChange={onChange}
+          />
+          <Button type="button" onClick={handleSave}>
+            Save
+          </Button>
+        </>
+      ) : (
+        <>
+          <p>
+            Budget: {currency} {budget}
+          </p>
+          <Button type="button" onClick={handleEdit}>
+            Edit
+          </Button>
+        </>
+      )}
+    </StyledBudget>
+  );
 };
